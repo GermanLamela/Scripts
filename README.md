@@ -62,12 +62,24 @@ else
 	echo "Apache se esta reiniciado..."
 fi
 ```
-![Captura1](Capturas_BoletinBloqueV_Scripts/Capturas_Ej1/1_Apache2_Desactivado)
 
 
 #### Solución final
 
-[Presentación de la solución final del ejercicio 1, acompañada de capturas de pantalla verificando su correcto funcionamiento.]
+![Captura1](Capturas_BoletinBloqueV_Scripts/Capturas_Ej1/1_Apache2_Desactivado.png)
+
+![Captura2](Capturas_BoletinBloqueV_Scripts/Capturas_Ej1/2_Informe_ApacheError.png)
+
+![Captura3](Capturas_BoletinBloqueV_Scripts/Capturas_Ej1/3_Apache2_Activado_sinInforme.png)
+
+![Captura4](Capturas_BoletinBloqueV_Scripts/Capturas_Ej1/4_Crontab.png)
+
+![Captura5](Capturas_BoletinBloqueV_Scripts/Capturas_Ej1/5_Anacrontab.png)
+
+![Captura6](Capturas_BoletinBloqueV_Scripts/Capturas_Ej1/6_Crontab_Minuto.png)
+
+![Captura7](Capturas_BoletinBloqueV_Scripts/Capturas_Ej1/7_Crontab_ComprobacionMinuto.png)
+
 
 ---
 
@@ -202,7 +214,9 @@ done
 
 #### Solución final
 
-[Presentación de la solución final del ejercicio 2, acompañada de capturas de pantalla verificando su correcto funcionamiento.]
+![Captura1](Capturas_BoletinBloqueV_Scripts/Capturas_Ej2/comprobacionPasos123.png)
+
+![Captura2](Capturas_BoletinBloqueV_Scripts/Capturas_Ej2/paso5.png)
 
 ---
 
@@ -290,8 +304,11 @@ mostrarMenu
 
 #### Solución final
 
-[Presentación de la solución final del ejercicio 3, acompañada de capturas de pantalla verificando su correcto funcionamiento.]
+![Captura1](Capturas_BoletinBloqueV_Scripts/Capturas_Ej3/1_crearUsuarios.png)
 
+![Captura2](Capturas_BoletinBloqueV_Scripts/Capturas_Ej3/2_borrarUsuarios.png)
+
+![Captura3](Capturas_BoletinBloqueV_Scripts/Capturas_Ej3/3_cuentasInactivas.png)
 ---
 
 ### <a name="enunciado-ejercicio-4"></a>Ejercicio 4
