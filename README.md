@@ -62,8 +62,8 @@ else
 	echo "Apache se esta reiniciado..."
 fi
 ```
+![Captura1](Capturas_BoletinBloqueV_Scripts/Capturas_Ej1/1_Apache2_Desactivado)
 
-[Detalle del desarrollo del ejercicio 1, incluyendo problemas encontrados y soluciones propuestas.]
 
 #### Solución final
 
