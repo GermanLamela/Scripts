@@ -394,7 +394,11 @@ done
 
 #### Solución final
 
-[Presentación de la solución final del ejercicio 4, acompañada de capturas de pantalla verificando su correcto funcionamiento.]
+![Captura1](Capturas_BoletinBloqueV_Scripts/Capturas_Ej4/paso1_2y5.png)
+
+![Captura2](Capturas_BoletinBloqueV_Scripts/Capturas_Ej4/paso3.PNG)
+
+![Captura3](Capturas_BoletinBloqueV_Scripts/Capturas_Ej4/paso4.png)
 
 ---
 
