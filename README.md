@@ -40,6 +40,29 @@ Si está parado, entonces:
 
 #### Desarrollo
 
+```sh
+#!/bin/bash
+#Autores: German Lamela, José Manuel Carmona y Antonio Tenorio.
+#Versión: 1.0
+#Descripción: Ejercicio 1. Comprueba cada minuto que el servicio Apache2 esté activo y tiene una tarea programada para que se ejecute cada 6 horas todos los días, si el pc está apagado.
+#Fecha: 01/05/2024
+#Bloque principal
+
+# Comprobamos si el servicio Apache está activo.
+existe=$(systemctl status apache2 | grep -w "active")	
+if ! [ -z "$existe" ]; 
+then
+	echo "Apache está en ejecución."
+else
+	fechaActual=$(date "+%d-%m-%Y %H:%M")
+	echo "Error-Apache: $fechaActual" >> /root/ApacheError.tmp
+
+	# Reiniciamos el servicio Apache.
+	sudo systemctl restart apache2
+	echo "Apache se esta reiniciado..."
+fi
+```
+
 [Detalle del desarrollo del ejercicio 1, incluyendo problemas encontrados y soluciones propuestas.]
 
 #### Solución final
@@ -81,7 +104,101 @@ minutos (1800 seg) sin actividad, se le cierra la sesión.
 
 #### Desarrollo
 
-[Detalle del desarrollo del ejercicio 2, incluyendo problemas encontrados y soluciones propuestas.]
+```sh
+#!/bin/bash
+#Autores: German Lamela, José Manuel Carmona y Antonio Tenorio.
+#Versión: 1.0
+#Descripción: Ejercicio 2
+#Fecha: 10/05/2024
+#Funciones
+
+clear
+
+usuariosBloqueados() {
+	echo "Usuarios bloqueados:"
+	sudo awk -F':' '$3 >= 1000 && $3 < 2000 { system("passwd -S " $1) }' /etc/passwd | awk '$2 == "L" { print $1 }'
+}
+
+bloquearUsuario() {
+	read -p "Introduce el nombre de usuario a bloquear: " usuario
+	usermod -L $usuario 2>&1
+	echo "El usuario $usuario ha sido bloqueado."
+}
+
+desbloquearUsuario() {
+	read -p "Introduce el nombre de usuario a desbloquear: " usuario
+	usermod -U $usuario 2>&1
+	echo "El usuario $usuario ha sido desbloqueado."
+}
+
+cerrarSesionUsuario() {
+
+# Solicitamos el nombre del usuario/a al que queremos cerrarle sesion.
+	read -p "Introduce el nombre de usuario/a a cerrar sesion: " usuario
+
+# Verificamos si el usuario/a está conectado.
+	if who | grep -qw "$usuario"; then
+
+# Obtenemos el tiempo de inactividad del usuario/a.
+	tiempoInactivo=$(w -h | awk -v user="$usuario" '$1 == user { print $5 }' | awk -F: '{ print ($1 * 3600) + ($2 * 60) + $3 }')
+
+# Comparamos el tiempo que el usuario/a lleva de inactividad, como máximo puede estar 1800 segundos (30 minutos).
+    if [ "$tiempoInactivo" -gt 1800 ]; then
+	# Cerramos la sesión del usuario/a.
+	pkill -KILL -u "$usuario"
+        echo "La sesión del $usuario ha sido cerrada debido a una prolongada inactividad."
+    else
+        echo "El usuario $usuario está activo."
+    fi
+    else
+    echo "El usuario $usuario no está conectado actualmente."
+fi
+
+}
+
+#Bloque principal
+while true; 
+do
+	echo "-----------MENU-----------"
+	echo "1.- Usuarios Bloqueados."
+	echo "2.- Bloquear un usuario."
+	echo "3.- Desbloquear usuario."
+	echo "4.- Cerrar sesion usuario."
+	echo "5.- Salir."
+	
+	read -p "Selecciona una opción: " opcion
+
+	case $opcion in
+	
+	1)
+		usuariosBloqueados
+	;;
+	
+	2)
+		bloquearUsuario
+	;;
+
+	3)
+		desbloquearUsuario
+	;;
+
+	4)
+		cerrarSesionUsuario
+	;;
+
+	5)
+		exit
+	;;
+
+		*)
+
+		echo "Opcion no valida. Por favor, selecciona una opción del menu. "
+	;;
+
+	esac
+	echo " "
+done
+```
 
 #### Solución final
 
@@ -119,7 +236,57 @@ BorrarUsuarios → Borra de forma masiva usuarios almacenados en el fichero
 
 #### Desarrollo
 
-[Detalle del desarrollo del ejercicio 3, incluyendo problemas encontrados y soluciones propuestas.]
+```sh
+#!/bin/bash
+#Autores: German Lamela, José Manuel Carmona y Antonio Tenorio.
+#Versión: 1.0
+#Descripción: Ejercicio 3. Muestra un menú interactivo que permite a los usuario/as elegir entre crear usuarios/as, borrar usuarios/as o salir del script.
+#Fecha: 10/05/2024
+#Funciones
+
+clear
+
+# Función para crear usuarios
+crearUsuarios() {
+    echo "Creando usuarios..."
+    while IFS=':' read -r username password name surname email; do
+        useradd -m -p "$(openssl passwd -1 "$password")" -c "$name $surname" -e "2024-06-30" "$username"
+        echo "$username:$password" | chpasswd
+        echo "$email" > "/home/$username/email.txt"
+        echo "Usuario $username creado."
+    done < "/root/usuarios.csv"
+}
+
+# Función para borrar usuarios
+borrarUsuarios() {
+    echo "Borrando usuarios..."
+    while IFS=':' read -r username _; do
+        userdel -r "$username" 2> /dev/null
+        echo "Usuario $username borrado."
+    done < "/root/usuarios.csv"
+}
+
+# Función principal del script
+mostrarMenu() {
+    while true; do
+        echo "Menú:"
+        echo "1.- Crear Usuarios"
+        echo "2.- Borrar Usuarios"
+        echo "3.- Salir"
+        read -rp "Seleccione una opción: " opcion
+
+        case $opcion in
+            1) crearUsuarios ;;
+            2) borrarUsuarios ;;
+            3) echo "Saliendo..."; exit 0 ;;
+            *) echo "Opción inválida. Por favor, seleccione 1, 2 o 3." ;;
+        esac
+    done
+}
+
+# Llamada a la función principal
+mostrarMenu
+```
 
 #### Solución final
 
@@ -149,7 +316,47 @@ automática. Indicaciones:
 
 #### Desarrollo
 
-[Detalle del desarrollo del ejercicio 4, incluyendo problemas encontrados y soluciones propuestas.]
+```sh
+#!/bin/bash
+#Autores: German Lamela, José Manuel Carmona y Antonio Tenorio.
+#Versión: 1.0
+#Descripción: Ejercicio 4. Crear usuarios de forma automática, asignandoles contraseña y obligándole a cambiarla.
+#Fecha: 09/05/2024
+#Bloque principal
+# Verificamos que se pasaron dos parámetros.
+if [ "$#" -ne 2 ]; then
+	echo "Proporciona nombre de usuario y número: $0 <nombre> <numeroUsuarios>"
+	exit 1
+fi
+
+nombre=$1
+numeroUsuarios=$2
+fechaActual=$(date +%d-%m-%Y)
+archivoUsuarios="usuariosCreados-$fechaActual.tmp"
+
+# Creamos usuarios.
+for i in $(seq 1 $numeroUsuarios);
+do
+	nombreUsuario="$nombre$i"
+	contrasena="$nombreUsuario"
+
+# Creamos el usuario.
+	useradd -m -s /bin/bash "$nombreUsuario"
+
+# Asignamos la contraseña.
+	echo "$nombreUsuario:$contrasena" | chpasswd
+
+# Forzamos a los usuarios que creemos a cambiar la contraseña en el primer inicio de sesión.
+	chage -d 0 "$nombreUsuario"
+
+# Agregamos los usuarios y las contraseñas al archivo.
+	echo "$nombreUsuario:$contrasena" >> "$archivoUsuarios"
+done
+
+# Mostramos el archivo de los usuarios creados.
+	echo "Usuarios creados y contraseñas:"
+	cat "$archivoUsuarios"
+```
 
 #### Solución final
 
