@@ -1,8 +1,8 @@
-l Trabajo realizado
 
-## Portada
 
-[Texto de la portada]
+
+
+![Portada](image.png)
 
 ## Índice
 
@@ -27,16 +27,16 @@ servicio apache2 está activo (running).
 
 Si está parado, entonces:
 
-1.- Introduce una línea: “Error-Apache: Fecha y hora actual” en /root/ApacheError.tmp, 
-donde FechaActual, representa día, mes, año, hora y minuto.
+>1.- Introduce una línea: “Error-Apache: Fecha y hora actual” en /root/ApacheError.tmp, 
+>donde FechaActual, representa día, mes, año, hora y minuto.
 
-2.- Reinicia el servicio apache2
-Para comprobarlo, para el servicio. Ejecuta el script en segundo plano y observa si lo 
-reinicia y crea el archivo.
+>2.- Reinicia el servicio apache2
+>Para comprobarlo, para el servicio. Ejecuta el script en segundo plano y observa si lo 
+>reinicia y crea el archivo.
 
-3.- Además del script, crea una tarea programada, de forma que ese script se ejecute cada 
-6 horas, todos los días. Y si el ordenador está apagado, se debe ejecutar la próxima vez 
-que se inicie, transcurrido cinco minutos.
+>3.- Además del script, crea una tarea programada, de forma que ese script se ejecute cada 
+>6 horas, todos los días. Y si el ordenador está apagado, se debe ejecutar la próxima vez 
+>que se inicie, transcurrido cinco minutos.
 
 #### Desarrollo
 
@@ -55,15 +55,15 @@ que se inicie, transcurrido cinco minutos.
 Realiza un script llamado usuariosBloqueados.sh, que nos muestre un menú:
 
 
-  1.- Usuarios Bloqueados.
+  >1.- Usuarios Bloqueados.
   
-  2.- Bloquear un usuario.
+  >2.- Bloquear un usuario.
   
-  3.- Desbloquear usuario.
+  >3.- Desbloquear usuario.
   
-  4.- Cerrar sesión usuario
+  >4.- Cerrar sesión usuario
   
-  5.- Salir
+  >5.- Salir
 
   
 Cada opción del menú corresponde con una función.
@@ -95,11 +95,11 @@ minutos (1800 seg) sin actividad, se le cierra la sesión.
 
 Realiza un script llamado crearBorrarUsuarios.sh, que nos muestre un menú:
 
-1.- Crear Usuarios.
+>1.- Crear Usuarios.
 
-2.- Borrar Usuarios.
+>2.- Borrar Usuarios.
 
-3.- Salir
+>3.- Salir
 
 CrearUsuarios → Crea de forma masiva usuarios almacenados en el fichero 
 /root/usuarios.csv
@@ -116,12 +116,6 @@ Además, queremos que esas cuentas queden inactivas el 30 de junio de 2024.
 
 BorrarUsuarios → Borra de forma masiva usuarios almacenados en el fichero 
 /root/usuarios.csv.
-> tabulado
-> .
-> .
-> .
-> .
-> 
 
 #### Desarrollo
 
@@ -137,7 +131,21 @@ BorrarUsuarios → Borra de forma masiva usuarios almacenados en el fichero
 
 #### Enunciado
 
-[Descripción del enunciado del ejercicio 4.]
+Crea en un script llamado crearUsuarios.sh que permita crear usuarios de forma 
+automática. Indicaciones: 
+
+>1.- Al script se le pasa dos parámetros: 
+
+>>a) El primer parámetro representa el nombre de un usuario genérico.
+>>
+>>b) El segundo parámetro representa el número de usuarios que quiere crearse.
+
+>2.- A cada usuario se le asigna la contraseña que coincida con el nombre de usuario. 
+>3.- Al usuario se le obliga a cambiar de contraseña, cuando se loguee. 
+>4.- Se crea un archivo: usuariosCreados-FechaActual.tmp con el nombre de los usuarios 
+>creados y la contraseña asignado, separados por “:”. 
+>5.- El archivo usuariosCreados-FechaActual.tmp tiene que ser mostrado en pantalla tras 
+>la ejecución del script. 
 
 #### Desarrollo
 
@@ -153,7 +161,13 @@ BorrarUsuarios → Borra de forma masiva usuarios almacenados en el fichero
 
 #### Enunciado
 
-[Descripción del enunciado del ejercicio 5.]
+Partimos de que tenemos varios usuarios: usuario1, usuario2, usuario3.  
+
+Al usuario1, se le ha establecido una cuota de disco: 40k y 100K (soft y hard 
+respectivamente).  
+
+Realiza un script llamado cuotasUsuarios.sh, que nos copie la cuota del usuario1 a todos 
+los usuarios cuyo uid >1000 y uid<2000.
 
 #### Desarrollo
 
