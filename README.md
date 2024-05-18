@@ -134,12 +134,14 @@ usuariosBloqueados() {
 bloquearUsuario() {
 	read -p "Introduce el nombre de usuario a bloquear: " usuario
 	usermod -L $usuario 2>&1
+	exit 1
 	echo "El usuario $usuario ha sido bloqueado."
 }
 
 desbloquearUsuario() {
 	read -p "Introduce el nombre de usuario a desbloquear: " usuario
 	usermod -U $usuario 2>&1
+	exit 1
 	echo "El usuario $usuario ha sido desbloqueado."
 }
 
@@ -152,15 +154,28 @@ cerrarSesionUsuario() {
 	if who | grep -qw "$usuario"; then
 
 # Obtenemos el tiempo de inactividad del usuario/a.
-	tiempoInactivo=$(w -h | awk -v user="$usuario" '$1 == user { print $5 }' | awk -F: '{ print ($1 * 3600) + ($2 * 60) + $3 }')
+	tiempoInactivo=$(w -h | awk -v user="$usuario" '$1 == user { print $5 }' | \
+awk -F: '{
+    if (NF == 3) {
+        # Formato HH:MM:SS
+        print ($1 * 3600) + ($2 * 60) + $3
+    } else if (NF == 2) {
+        # Formato MM:SS
+        print ($1 * 60) + $2
+    } else {
+        # Formato SS
+        print $1
+    }
+}')
 
 # Comparamos el tiempo que el usuario/a lleva de inactividad, como máximo puede estar 1800 segundos (30 minutos).
-    if [ "$tiempoInactivo" -gt 1800 ]; then
+    if [ "$tiempoInactivo" -gt 1800 ] 2> /dev/null
+    then 
 	# Cerramos la sesión del usuario/a.
-	pkill -KILL -u "$usuario"
+	pkill -KILL -u "$usuario" 
         echo "La sesión del $usuario ha sido cerrada debido a una prolongada inactividad."
     else
-        echo "El usuario $usuario está activo."
+        echo "El usuario $usuario está activo." 
     fi
     else
     echo "El usuario $usuario no está conectado actualmente."
@@ -210,6 +225,8 @@ do
 	esac
 	echo " "
 done
+
+
 ```
 
 #### Solución final
