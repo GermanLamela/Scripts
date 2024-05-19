@@ -266,6 +266,7 @@ done
      - `desbloquearUsuario()`: Desbloquea un usuario específico.
      - `cerrarSesionUsuario()`: Cierra la sesión de un usuario inactivo.
    - **Manejo de Inactividad**: Calcular el tiempo de inactividad de un usuario y cerrar la sesión si supera un límite establecido (30 minutos).
+   - **Problema y solución**: En el punto 4 nos encontramos con el problema de que cerraba la sesión independientemente del tiempo de inactividad. Finalmente logramos que funcionará, pero a la hora de probarlo lo hicimos usando un límite de 5 minutos, para no tener que esperar media hora para la comprobación.
 
 
 #### Solución final
