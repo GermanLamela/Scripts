@@ -30,7 +30,7 @@ Si está parado, entonces:
 >1.- Introduce una línea: “Error-Apache: Fecha y hora actual” en /root/ApacheError.tmp, 
 >donde FechaActual, representa día, mes, año, hora y minuto.
 
->2.- Reinicia el servicio apache2
+>2.- Reinicia el servicio apache2.
 >Para comprobarlo, para el servicio. Ejecuta el script en segundo plano y observa si lo 
 >reinicia y crea el archivo.
 
