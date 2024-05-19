@@ -378,6 +378,7 @@ mostrarMenu
      - `borrarUsuarios()`: Borra usuarios leyendo los datos de un archivo CSV. Usa `userdel` para eliminar cuentas de usuario y sus directorios asociados.
      - `mostrarMenu()`: Función principal que muestra el menú y maneja la selección del usuario.
    - **Manejo de Archivos**: Utilizar un archivo CSV (`/root/usuarios.csv`) para almacenar los datos necesarios para la creación y eliminación de usuarios.
+   - **Problema y solución**: Nos encontramos con un error de incompatibilidad de contraseña debido a que el archivo `usuarios.csv` que aporta el ejercicio contiene el caracter "." en la contraseña, por lo que tuvimos que quitarla para su correcto funcionamiento.
 
 
 #### Solución final
