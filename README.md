@@ -65,7 +65,7 @@ fi
 ### Desarrollo
 
 1. **Objetivo**
-   - Necesitábamos un script que revisara periódicamente el estado del servicio Apache y lo reiniciara si no estaba activo. Queríamos asegurarnos de que nuestro servidor web estuviera siempre disponible y minimizar el tiempo de inactividad.
+   - Necesitábamos un script que revisara periódicamente el estado del servicio Apache y lo reiniciara si no estaba activo, teniendo en cuenta también cuando el equipo esté apagado. Queríamos asegurarnos de que nuestro servidor web estuviera siempre disponible y minimizar el tiempo de inactividad.
 
 2. **Recolección de Requisitos**
    - **Funcionalidad Principal**: El script debe verificar cada minuto si Apache está activo.
