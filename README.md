@@ -62,6 +62,21 @@ else
 	echo "Apache se esta reiniciado..."
 fi
 ```
+### Desarrollo de los Scripts para Supervisar y Reiniciar Apache
+
+1. **Objetivo**
+   - Necesitábamos un script que revisara periódicamente el estado del servicio Apache y lo reiniciara si no estaba activo. Queríamos asegurarnos de que nuestro servidor web estuviera siempre disponible y minimizar el tiempo de inactividad.
+
+2. **Recolección de Requisitos**
+   - **Funcionalidad Principal**: El script debe verificar cada minuto si Apache está activo.
+   - **Reinicio Automático**: Si detecta que Apache no está activo, el script debe reiniciarlo automáticamente.
+   - **Registro de Errores**: Registrar la fecha y hora de cada reinicio en un archivo para llevar un control de los eventos.
+   - **Tarea Programada**: Configurar una tarea cron que ejecute el script cada minuto y otra que se ejecute cada 6 horas para asegurar que también funcione si el PC estuvo apagado.
+
+3. **Diseño del Script**
+   - **Verificación del Estado**: Usamos el comando `systemctl status apache2` y filtramos el resultado para encontrar el estado "active".
+   - **Condicional para el Reinicio**: Si Apache no está activo, el script lo reinicia y registra el evento.
+   - **Registro de Errores**: Guardamos la fecha y hora del evento de reinicio en un archivo temporal (`/root/ApacheError.tmp`).
 
 
 #### Solución final
@@ -114,7 +129,7 @@ CerrarSesion → Nos pregunta el nombre de un usuario, y si el usuario lleva má
 minutos (1800 seg) sin actividad, se le cierra la sesión.
 
 
-#### Desarrollo
+#### Código
 
 ```sh
 #!/bin/bash
@@ -229,6 +244,30 @@ done
 
 ```
 
+### Desarrollo
+1. **Objetivo**
+   - Crear un script que permita gestionar usuarios en un sistema Linux, específicamente para listar usuarios bloqueados, bloquear y desbloquear usuarios, y cerrar la sesión de usuarios inactivos.
+   - **Razón**: Facilitar la administración de usuarios, mejorar la seguridad y garantizar que los usuarios inactivos no consuman recursos del sistema innecesariamente.
+
+2. **Recolección de Requisitos**
+   - **Funcionalidad Principal**: El script debe proporcionar un menú interactivo con opciones para:
+     - Listar usuarios bloqueados.
+     - Bloquear usuarios.
+     - Desbloquear usuarios.
+     - Cerrar la sesión de usuarios inactivos.
+   - **Interactividad**: Utilizar `read` para solicitar entradas del usuario y `case` para manejar las opciones del menú.
+   - **Permisos de Usuario**: Ejecutar comandos con permisos suficientes (por ejemplo, `sudo` para modificar usuarios).
+
+3. **Diseño del Script**
+   - **Estructura del Menú**: Un bucle `while` que presenta un menú con las opciones y ejecuta las funciones correspondientes según la elección del usuario.
+   - **Funciones Principales**:
+     - `usuariosBloqueados()`: Lista los usuarios bloqueados.
+     - `bloquearUsuario()`: Bloquea un usuario específico.
+     - `desbloquearUsuario()`: Desbloquea un usuario específico.
+     - `cerrarSesionUsuario()`: Cierra la sesión de un usuario inactivo.
+   - **Manejo de Inactividad**: Calcular el tiempo de inactividad de un usuario y cerrar la sesión si supera un límite establecido (30 minutos).
+
+
 #### Solución final
 
 ![Captura1](Capturas_BoletinBloqueV_Scripts/Capturas_Ej2/comprobacionPasos123.png)
@@ -265,7 +304,7 @@ Además, queremos que esas cuentas queden inactivas el 30 de junio de 2024.
 BorrarUsuarios → Borra de forma masiva usuarios almacenados en el fichero 
 /root/usuarios.csv.
 
-#### Desarrollo
+#### Código
 
 ```sh
 #!/bin/bash
@@ -318,6 +357,28 @@ mostrarMenu() {
 # Llamada a la función principal
 mostrarMenu
 ```
+### Desarrollo
+
+1. **Objetivo**
+   - Crear un script que permita gestionar usuarios en un sistema Linux, específicamente para crear y borrar usuarios a través de un menú interactivo.
+   - **Razón**: Facilitar la administración de usuarios, permitiendo crear y borrar cuentas de usuario de manera eficiente y automatizada.
+
+2. **Recolección de Requisitos**
+   - **Funcionalidad Principal**: El script debe proporcionar un menú interactivo con opciones para:
+     - Crear usuarios.
+     - Borrar usuarios.
+     - Salir del script.
+   - **Interactividad**: Utilizar `read` para solicitar entradas del usuario y `case` para manejar las opciones del menú.
+   - **Automatización**: Leer datos de un archivo CSV (`/root/usuarios.csv`) para automatizar la creación y eliminación de usuarios.
+
+3. **Diseño del Script**
+   - **Estructura del Menú**: Un bucle `while` que presenta un menú con las opciones y ejecuta las funciones correspondientes según la elección del usuario.
+   - **Funciones Principales**:
+     - `crearUsuarios()`: Crea usuarios leyendo los datos de un archivo CSV. Usa `useradd` para añadir usuarios y `chpasswd` para establecer contraseñas.
+     - `borrarUsuarios()`: Borra usuarios leyendo los datos de un archivo CSV. Usa `userdel` para eliminar cuentas de usuario y sus directorios asociados.
+     - `mostrarMenu()`: Función principal que muestra el menú y maneja la selección del usuario.
+   - **Manejo de Archivos**: Utilizar un archivo CSV (`/root/usuarios.csv`) para almacenar los datos necesarios para la creación y eliminación de usuarios.
+
 
 #### Solución final
 
@@ -348,7 +409,7 @@ automática. Indicaciones:
 >5.- El archivo usuariosCreados-FechaActual.tmp tiene que ser mostrado en pantalla tras 
 >la ejecución del script. 
 
-#### Desarrollo
+#### Código
 
 ```sh
 #!/bin/bash
@@ -391,6 +452,28 @@ done
 	echo "Usuarios creados y contraseñas:"
 	cat "$archivoUsuarios"
 ```
+### Desarrollo
+
+1. **Objetivo**
+   - Desarrollar un script que automatice la creación de usuarios en un sistema Linux, asignándoles contraseñas y obligándolos a cambiarlas en el primer inicio de sesión.
+   - **Razón**: Simplificar el proceso de creación de múltiples usuarios en un sistema, asegurando la seguridad al forzar el cambio de contraseña inicial.
+
+2. **Recolección de Requisitos**
+   - **Funcionalidad Principal**: El script debe:
+     - Crear usuarios de forma automática a partir de un nombre base y un número especificado.
+     - Asignar contraseñas a los usuarios recién creados.
+     - Forzar a los usuarios a cambiar sus contraseñas en su primer inicio de sesión.
+     - Generar un archivo de registro que contenga los nombres de usuario y sus contraseñas asociadas.
+   - **Parametrización**: Se espera que se pasen dos parámetros al script: el nombre base para los usuarios y el número de usuarios a crear.
+   - **Seguridad**: Asegurar que las contraseñas sean establecidas y que los usuarios sean obligados a cambiarlas para mejorar la seguridad del sistema.
+
+3. **Diseño del Script**
+   - **Estructura del Script**: Un bloque principal que verifica los parámetros pasados al script y luego itera para crear los usuarios y asignarles contraseñas.
+   - **Creación de Usuarios**: Utiliza un bucle `for` para crear usuarios con nombres generados dinámicamente.
+   - **Asignación de Contraseñas**: Usa el comando `chpasswd` para establecer las contraseñas de los usuarios.
+   - **Forzar Cambio de Contraseña**: Emplea `chage` para obligar a los usuarios a cambiar sus contraseñas en su primer inicio de sesión.
+   - **Registro de Usuarios**: Guarda los nombres de usuario y contraseñas en un archivo temporal para futuras referencias.
+
 
 #### Solución final
 
@@ -414,9 +497,53 @@ respectivamente).
 Realiza un script llamado cuotasUsuarios.sh, que nos copie la cuota del usuario1 a todos 
 los usuarios cuyo uid >1000 y uid<2000.
 
-#### Desarrollo
+#### Código
+```sh
+#!/bin/bash
+#Autores: German Lamela, José Manuel Carmona y Antonio Tenorio.
+#Versión: 1.0
+#Descripción: Ejercicio 5. Tenemos 3 usuarios/as y a un usuario se le ha establecido una cuota de disco. Copiamos la cuota establecida del usuario1 a todos los usuarios/as cuyo UID esté entre 1000 y 2000. 
+#Fecha: 12/05/2024
+#Funciones
 
-[Detalle del desarrollo del ejercicio 5, incluyendo problemas encontrados y soluciones propuestas.]
+clear
+
+# Función para copiar cuota del usuario1 a otros usuarios.
+copiarCuota() {
+    echo "Copiando cuota del usuario1 a otros usuarios..."
+    usuario1_soft=$(quota -u usuario1 | awk 'NR==3{print $2}')
+    usuario1_hard=$(quota -u usuario1 | awk 'NR==3{print $3}')
+
+    # Filtramos sobre los usuarios cuyo UID está entre 1000 y 2000.
+    for user in $(awk -F: '$3 >= 1000 && $3 < 2000 {print $1}' /etc/passwd); do
+        setquota -u "$user" "$usuario1_soft" "$usuario1_hard" 0 0 /
+        echo "Cuota del usuario1 copiada a $user."
+    done
+}
+
+# Bloque Principal
+copiarCuota
+```
+
+### Desarrollo
+
+1. **Objetivo**
+   - Desarrollar un script que copie la cuota de disco establecida para un usuario específico a otros usuarios en un sistema Linux.
+   - **Razón**: Simplificar el proceso de asignación de cuotas de disco para varios usuarios, asegurando la coherencia en la gestión de recursos del sistema.
+
+2. **Recolección de Requisitos**
+   - **Funcionalidad Principal**: El script debe:
+     - Copiar la cuota de disco establecida para un usuario llamado usuario1 a otros usuarios cuyo UID esté entre 1000 y 2000.
+     - Utilizar comandos como `quota` y `setquota` para obtener y establecer cuotas de disco respectivamente.
+     - Filtrar los usuarios cuyo UID esté dentro del rango especificado.
+   - **Seguridad**: Asegurar que solo los usuarios con UID entre 1000 y 2000 tengan sus cuotas modificadas para evitar efectos no deseados en otros usuarios.
+
+3. **Diseño del Script**
+   - **Estructura del Script**: El script sigue una estructura simple con un único bloque principal que llama a la función `copiarCuota`.
+   - **Obtención de Cuota del Usuario1**: Utiliza el comando `quota` para obtener la cuota suave y dura establecida para el usuario1.
+   - **Copia de Cuota a Otros Usuarios**: Itera sobre los usuarios cuyo UID está dentro del rango especificado y utiliza `setquota` para establecer la misma cuota que usuario1.
+   - **Seguimiento de Progreso**: Imprime mensajes indicando la copia exitosa de la cuota de usuario1 a cada usuario afectado.
+
 
 #### Solución final
 
@@ -437,5 +564,4 @@ chatgpt
 
 ## <a name="conclusiones"></a>Conclusiones
 
-[Conclusiones del trabajo realizado.]
-
+Después de completar este proyecto, hemos experimentado un significativo aumento en nuestras habilidades en el campo del scripting en bash. Este desafío nos ha llevado a mejorar nuestro control sobre el lenguaje y a prestar una atención al detalle aún más exhaustiva que en los proyectos realizados durante el segundo trimestre. Cada script requería un enfoque meticuloso y una comprensión profunda de los comandos y estructuras de bash. Esta experiencia no solo ha fortalecido nuestras habilidades técnicas, sino que también ha mejorado nuestra capacidad para resolver problemas de manera eficiente y automatizar tareas repetitivas en entornos Linux. En resumen, este proyecto ha sido una valiosa oportunidad de crecimiento y aprendizaje en el campo del scripting, preparándonos mejor para enfrentar desafíos similares en el futuro.
