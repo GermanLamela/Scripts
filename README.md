@@ -555,11 +555,11 @@ copiarCuota
 
 ## <a name="bibliografia"></a>Bibliografía
 
-Diapositivas del curso
+- Diapositivas del curso
 
-mclibre
+- mclibre
 
-chatgpt
+- chatgpt
 
 
 ---
