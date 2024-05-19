@@ -543,12 +543,11 @@ copiarCuota
    - **Obtención de Cuota del Usuario1**: Utiliza el comando `quota` para obtener la cuota suave y dura establecida para el usuario1.
    - **Copia de Cuota a Otros Usuarios**: Itera sobre los usuarios cuyo UID está dentro del rango especificado y utiliza `setquota` para establecer la misma cuota que usuario1.
    - **Seguimiento de Progreso**: Imprime mensajes indicando la copia exitosa de la cuota de usuario1 a cada usuario afectado.
+     
 
 
 #### Solución final
-
-[Presentación de la solución final del ejercicio 5, acompañada de capturas de pantalla verificando su correcto funcionamiento.]
-
+**Problema**: A la hora de implementar las coutas a los usuarios no hemos conseguido configurar el punto de montaje de los usuarios correctamente, por lo tanto no podemos comprobar la función del script. Por lo tanto, aunque seguramente el script esté bien diseñado no podemos aportar las capturas que lo demuestren.
 ---
 
 ## <a name="bibliografia"></a>Bibliografía
