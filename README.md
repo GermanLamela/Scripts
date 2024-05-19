@@ -137,6 +137,7 @@ minutos (1800 seg) sin actividad, se le cierra la sesión.
 #Versión: 1.0
 #Descripción: Ejercicio 2
 #Fecha: 10/05/2024
+#Parametros y Variables
 #Funciones
 
 clear
@@ -313,6 +314,7 @@ Además, queremos que esas cuentas queden inactivas el 30 de junio de 2024.
 #Versión: 1.0
 #Descripción: Ejercicio 3. Muestra un menú interactivo que permite a los usuario/as elegir entre crear usuarios/as, borrar usuarios/as o salir del script.
 #Fecha: 10/05/2024
+#Parametros y Variables
 #Funciones
 
 clear
@@ -419,17 +421,17 @@ automática. Indicaciones:
 #Versión: 1.0
 #Descripción: Ejercicio 4. Crear usuarios de forma automática, asignandoles contraseña y obligándole a cambiarla.
 #Fecha: 09/05/2024
+#Parametros y Variables
+nombre=$1
+numeroUsuarios=$2
+fechaActual=$(date +%d-%m-%Y)
+archivoUsuarios="usuariosCreados-$fechaActual.tmp"
 #Bloque principal
 # Verificamos que se pasaron dos parámetros.
 if [ "$#" -ne 2 ]; then
 	echo "Proporciona nombre de usuario y número: $0 <nombre> <numeroUsuarios>"
 	exit 1
 fi
-
-nombre=$1
-numeroUsuarios=$2
-fechaActual=$(date +%d-%m-%Y)
-archivoUsuarios="usuariosCreados-$fechaActual.tmp"
 
 # Creamos usuarios.
 for i in $(seq 1 $numeroUsuarios);
@@ -507,6 +509,7 @@ los usuarios cuyo uid >1000 y uid<2000.
 #Versión: 1.0
 #Descripción: Ejercicio 5. Tenemos 3 usuarios/as y a un usuario se le ha establecido una cuota de disco. Copiamos la cuota establecida del usuario1 a todos los usuarios/as cuyo UID esté entre 1000 y 2000. 
 #Fecha: 12/05/2024
+#Parametros y Variables
 #Funciones
 
 clear
