@@ -62,7 +62,7 @@ else
 	echo "Apache se esta reiniciado..."
 fi
 ```
-### Desarrollo de los Scripts para Supervisar y Reiniciar Apache
+### Desarrollo
 
 1. **Objetivo**
    - Necesitábamos un script que revisara periódicamente el estado del servicio Apache y lo reiniciara si no estaba activo. Queríamos asegurarnos de que nuestro servidor web estuviera siempre disponible y minimizar el tiempo de inactividad.
