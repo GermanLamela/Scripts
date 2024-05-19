@@ -428,8 +428,6 @@ los usuarios cuyo uid >1000 y uid<2000.
 
 Diapositivas del curso
 
-https://www.w3schools.io
-
 mclibre
 
 chatgpt
