@@ -475,6 +475,7 @@ done
    - **Asignación de Contraseñas**: Usa el comando `chpasswd` para establecer las contraseñas de los usuarios.
    - **Forzar Cambio de Contraseña**: Emplea `chage` para obligar a los usuarios a cambiar sus contraseñas en su primer inicio de sesión.
    - **Registro de Usuarios**: Guarda los nombres de usuario y contraseñas en un archivo temporal para futuras referencias.
+   - **Problema y solución**: Cuando ponemos una contraseña que contenga el nombre del usuario la consola nos advierte de que no es recomendable, pero no tiene mucha importancia.
 
 
 #### Solución final
