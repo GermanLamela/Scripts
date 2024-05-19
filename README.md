@@ -289,7 +289,7 @@ Realiza un script llamado crearBorrarUsuarios.sh, que nos muestre un menú:
 
 >3.- Salir
 
-CrearUsuarios → Crea de forma masiva usuarios almacenados en el fichero 
+- CrearUsuarios → Crea de forma masiva usuarios almacenados en el fichero 
 /root/usuarios.csv
 
 Los campos son los siguientes:
@@ -302,7 +302,7 @@ Los campos son los siguientes:
   
 Además, queremos que esas cuentas queden inactivas el 30 de junio de 2024.
 
-BorrarUsuarios → Borra de forma masiva usuarios almacenados en el fichero 
+- BorrarUsuarios → Borra de forma masiva usuarios almacenados en el fichero 
 /root/usuarios.csv.
 
 #### Código
