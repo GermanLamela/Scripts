@@ -553,7 +553,7 @@ copiarCuota
 
 
 #### Solución final
-**Problema**: A la hora de implementar las coutas no hemos conseguido configurar el punto de montaje de los usuarios correctamente, por lo tanto no podemos comprobar la función del script. Por lo tanto, aunque seguramente el código esté bien diseñado no podemos aportar las capturas que lo demuestren.
+**Problema**: A la hora de implementar las coutas no hemos conseguido configurar el punto de montaje de los usuarios correctamente, por lo tanto no podemos comprobar la función del script. Dicho esto, aunque seguramente el código esté bien diseñado no podemos aportar las capturas que lo demuestren.
 ---
 
 ## <a name="bibliografia"></a>Bibliografía
